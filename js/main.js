@@ -68,16 +68,6 @@ if (slides) {
   start();
 }
 
-/* Menu "Kontak Kami" aktif saat section #kontak terlihat (beranda) */
-const kontak = $("#kontak");
-if (kontak && "IntersectionObserver" in window) {
-  const home = $('.menu a[href$="index.html"]'), kon = $('.menu a[href$="index.html#kontak"]');
-  if (home && kon) new IntersectionObserver(([e]) => {
-    kon.toggleAttribute("aria-current", e.isIntersecting); if (e.isIntersecting) kon.setAttribute("aria-current", "page");
-    home.toggleAttribute("aria-current", !e.isIntersecting); if (!e.isIntersecting) home.setAttribute("aria-current", "page");
-  }, { threshold: 0.35 }).observe(kontak);
-}
-
 /* FAQ accordion (beberapa item boleh terbuka bersamaan) */
 $$(".faq-q").forEach((b) => b.addEventListener("click", () => {
   const open = b.getAttribute("aria-expanded") === "true";
