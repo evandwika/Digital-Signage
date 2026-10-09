@@ -1,6 +1,6 @@
 /* ===== CAHAYA MUSTIKA - main.js =====
    Data perusahaan (nomor WhatsApp, email, alamat, maps, sosial media) ada di js/config.js */
-const WA_NUMBER = CONFIG.whatsapp;
+const WA_NUMBER = String(CONFIG.whatsapp || "").replace(/\D/g, "");
 const WA_MESSAGE = CONFIG.whatsappMessage;
 const waUrl = (t) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
 const $ = (s, r = document) => r.querySelector(s);
@@ -21,7 +21,7 @@ function bindWA() {
   $$("[data-wa]").forEach((a) => {
     a.href = waUrl(a.dataset.msg || WA_MESSAGE);
     a.target = "_blank"; a.rel = "noopener";
-    if ("txt" in a.dataset) a.textContent = "0" + WA_NUMBER.replace(/^62/, "").replace(/(\d{3})(\d{4})(\d+)/, "$1-$2-$3");
+    if ("txt" in a.dataset) a.textContent = CONFIG.phone || WA_NUMBER;
   });
 }
 bindWA();

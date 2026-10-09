@@ -7,9 +7,18 @@
   const imgSrc = (p) => BASE + p.img;
   /* Produk tanpa foto (series baru & accessories): placeholder konsisten dengan fallback gambar existing */
   const media = (p) => p.img ? `<img src="${imgSrc(p)}" alt="${esc(p.name)}" loading="lazy" decoding="async">` : `<span class="imgfb" role="img" aria-label="${esc(p.name)}">${esc(p.name)}</span>`;
+  /* Logo brand (gambar PNG), menggantikan badge teks berwarna di atas nama produk */
+  const BRAND_LOGO_IMG = {
+    Samsung: "assets/logo/brands/samsung.png",
+    LG: "assets/logo/brands/lg.png",
+    Hikvision: "assets/logo/brands/hikvision.png"
+  };
+  const brandLogo = (b) => BRAND_LOGO_IMG[b]
+    ? `<span class="pbrand-logo"><img src="${BASE + BRAND_LOGO_IMG[b]}" alt="${esc(b)}" class="blogo blogo-${b.toLowerCase()}" loading="lazy" decoding="async"></span>`
+    : `<span class="pbrand">${esc(b)}</span>`;
   const card = (p) => `<article class="pcard">
     <a class="pimg" href="${BASE}product-detail/${p.id}.html" data-name="${esc(p.name)}">${media(p)}</a>
-    <div class="pb"><span class="pbrand">${p.brand}${p.type === "accessory" && p.acat ? " · " + esc(p.acat) : ""}</span><h3>${esc(p.name)}</h3>${p.desc ? `<p class="pdesc">${esc(p.desc)}</p>` : ""}
+    <div class="pb">${brandLogo(p.brand)}${p.type === "accessory" && p.acat ? `<span class="pacat">${esc(p.acat)}</span>` : ""}<h3>${esc(p.name)}</h3>${p.desc ? `<p class="pdesc">${esc(p.desc)}</p>` : ""}
     <a class="btn btn-o" href="${BASE}product-detail/${p.id}.html">Lihat Detail</a></div></article>`;
   const ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   const BRANDS = ["Samsung", "LG", "Hikvision"];

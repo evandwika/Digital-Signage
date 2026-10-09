@@ -132,6 +132,11 @@ code{background:var(--soft);padding:1px 6px;border-radius:4px;font-size:.9em}
 .ct{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:start}
 .ct .kt-info h2{font-size:22px}
 .kt-lead{margin:10px 0 26px;color:var(--mute);font-size:15.5px}
+.ct-h{font-size:22px;font-weight:800;margin-bottom:10px}
+.ct--map .kt-list{margin-top:24px}
+.ct--map .kt-map{min-height:460px}
+.ct--map .kt-map iframe{min-height:460px}
+@media (max-width:900px){.ct--map{grid-template-columns:1fr}.ct--map .kt-map{min-height:320px}.ct--map .kt-map iframe{min-height:320px}}
 .loc-h{font-size:22px;font-weight:800;margin-bottom:18px}
 dl{display:grid;gap:4px}
 dt{font-size:13px;font-weight:700;color:var(--mute);margin-top:18px}
@@ -287,6 +292,12 @@ form small{color:#D14343;font-size:12px;font-weight:500;min-height:0}
 .pcard:hover .pimg img{transform:scale(1.04)}
 .pb{padding:20px 22px 24px;display:flex;flex-direction:column;gap:4px}
 .pbrand{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.02em}
+.pbrand-logo{display:inline-flex;align-items:center;height:22px;margin-bottom:4px}
+.pbrand-logo .blogo{height:100%;width:auto;max-width:120px;display:block;object-fit:contain}
+.pbrand-logo .blogo-samsung{height:13px}
+.pbrand-logo .blogo-lg{height:22px}
+.pbrand-logo .blogo-hikvision{height:14px}
+.pacat{display:inline-block;margin-left:8px;font-size:12px;color:var(--mute);font-weight:600}
 .pb h3{font-size:19px}
 .pb .btn{margin-top:14px;align-self:flex-start;padding:10px 22px}
 /* Solusi (kartu bergambar) */
@@ -414,8 +425,6 @@ input,select,textarea{background:var(--surf2)}
 .pcatsec .count{margin:26px 0 8px}
 .bsec{margin-top:44px}.bsec:first-child{margin-top:20px}
 .bhd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:16px;margin-bottom:24px;border-bottom:1px solid var(--line)}
-.blogo{height:30px;width:auto;max-width:160px;object-fit:contain}
-:root[data-theme="dark"] .blogo{filter:brightness(0) invert(1)}
 .bmore{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--p);transition:gap .2s}.bmore:hover{gap:10px}
 /* kartu katalog */
 .cat .pcard{border-radius:14px}
@@ -571,6 +580,7 @@ html:has(#lb[open]){overflow:hidden}
 .feat .pimg img{aspect-ratio:3/2;height:auto;object-fit:contain;background:#fff}
 .feat .pb{flex:1;padding:22px 24px 24px;gap:6px}
 .feat .pbrand{display:inline-block;align-self:flex-start;padding:3px 10px;border-radius:999px;background:var(--soft);font-size:12px;letter-spacing:.04em}
+.feat .pbrand-logo{align-self:flex-start;background:none;padding:0}
 .feat .pb h3{font-size:20px;margin-top:6px}
 .feat .pdesc{-webkit-line-clamp:3;min-height:calc(1.55em*3);margin-top:2px}
 .feat .pb .btn{margin-top:auto;align-self:stretch;padding:11px 18px;border-radius:10px;background:var(--p);border-color:var(--p);color:#fff;gap:8px}
@@ -596,3 +606,128 @@ html:has(#lb[open]){overflow:hidden}
 .acard h3{font-size:21px}
 .acard .abody>p{-webkit-line-clamp:3;margin-bottom:14px}
 @media(max-width:700px){.agrid{grid-template-columns:minmax(0,1fr)}.agrid .abody,.agrid .acard:first-child .abody{padding:24px 22px 26px}}
+
+
+/* Penyempurnaan halaman artikel dan CTA kontak */
+.article-eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:15px;color:var(--p);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.article-eyebrow:before{content:"";width:28px;height:2px;border-radius:2px;background:currentColor}
+body:has(#artgrid) .ahead{position:relative;overflow:hidden;background:radial-gradient(ellipse at 82% 18%,rgba(11,63,168,.12),transparent 38%),var(--bg)}
+body:has(#artgrid) .page-header{max-width:850px;padding:20px 0 12px}
+body:has(#artgrid) .page-header h1{max-width:760px;font-size:clamp(34px,5vw,58px);line-height:1.12;letter-spacing:-.045em}
+body:has(#artgrid) .page-header p{max-width:660px;font-size:17px;line-height:1.85;color:var(--mute)}
+#artgrid.agrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+#artgrid .acard{position:relative;min-height:280px;overflow:hidden;border:1px solid var(--line);border-radius:22px;background:var(--card,var(--bg));box-shadow:0 8px 28px rgba(7,26,54,.045);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+#artgrid .acard:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,#0758d9,#65a5ff);opacity:.85}
+#artgrid .acard:hover{transform:translateY(-5px);box-shadow:0 20px 45px rgba(7,26,54,.11);border-color:rgba(7,88,217,.35)}
+#artgrid .abody{height:100%;padding:30px 30px 28px 34px;display:flex;flex-direction:column;align-items:flex-start}
+#artgrid .ameta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;font-size:12px;color:var(--mute)}
+#artgrid .acat{display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(7,88,217,.09);color:var(--p);font-weight:800;letter-spacing:.02em}
+#artgrid .abody h3{margin:0 0 12px;font-size:clamp(20px,2.3vw,25px);line-height:1.35;letter-spacing:-.025em}
+#artgrid .abody h3 a{color:var(--ink);text-decoration:none;transition:color .2s}
+#artgrid .abody h3 a:hover{color:var(--p)}
+#artgrid .abody>p{margin:0 0 24px;color:var(--mute);font-size:14px;line-height:1.85}
+#artgrid .abtn{display:inline-flex;align-items:center;gap:10px;margin-top:auto;padding-top:5px;color:var(--p);font-size:13px;font-weight:800;text-decoration:none}
+#artgrid .abtn:hover{gap:15px}
+.contact-consult{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:12px 17px;font-size:13px;text-decoration:none}
+@media(max-width:700px){#artgrid.agrid{grid-template-columns:1fr;gap:16px}#artgrid .acard{min-height:0}#artgrid .abody{padding:25px 22px 24px 27px}body:has(#artgrid) .page-header h1{font-size:36px}}
+
+
+/* ===== Artikel: tata letak rapi dan konsisten ===== */
+body:has(#artgrid) .ahead{
+  padding:118px 0 54px;
+  background:radial-gradient(ellipse at 82% 10%,rgba(59,130,246,.12),transparent 38%),var(--alt);
+  color:var(--ink);
+  border-bottom:1px solid var(--line);
+}
+body:has(#artgrid) .page-header{
+  max-width:780px;
+  margin:0 auto;
+  padding:0;
+  text-align:center;
+}
+body:has(#artgrid) .page-header h1{
+  max-width:none;
+  margin:0 auto;
+  color:var(--ink);
+  font-size:clamp(32px,4vw,46px);
+  line-height:1.18;
+  letter-spacing:-.035em;
+}
+body:has(#artgrid) .page-header h1::after{margin:18px auto 0}
+body:has(#artgrid) .page-header p{
+  max-width:650px;
+  margin:18px auto 0;
+  color:var(--mute);
+  font-size:16px;
+  line-height:1.8;
+}
+#artgrid.agrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:26px;
+  align-items:stretch;
+}
+#artgrid .acard{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  height:100%;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--card);
+  box-shadow:0 6px 22px rgba(7,26,54,.055);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+#artgrid .acard:hover{
+  transform:translateY(-4px);
+  border-color:rgba(7,88,217,.28);
+  box-shadow:0 14px 32px rgba(7,26,54,.10);
+}
+#artgrid .acard:first-child{grid-column:auto;flex-direction:column}
+#artgrid .acard:first-child .athumb{flex:initial;aspect-ratio:16/9;position:relative}
+#artgrid .athumb{
+  position:relative;
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--alt);
+}
+#artgrid .athumb img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .35s ease;
+}
+#artgrid .acard:hover .athumb img{transform:scale(1.035)}
+#artgrid .abody{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:11px;
+  padding:24px 26px 26px;
+}
+#artgrid .acard:first-child .abody{justify-content:flex-start;padding:24px 26px 26px}
+#artgrid .abody h3,
+#artgrid .acard:first-child h3{
+  font-size:20px;
+  line-height:1.4;
+  letter-spacing:-.02em;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+  overflow:hidden;
+}
+#artgrid .abody p{color:var(--mute);font-size:14px;line-height:1.75}
+#artgrid .abody .btn,
+#artgrid .abody a:not(.athumb){margin-top:auto}
+@media(max-width:700px){
+  body:has(#artgrid) .ahead{padding:100px 0 38px}
+  body:has(#artgrid) .page-header h1{font-size:clamp(30px,8vw,38px)}
+  #artgrid.agrid{grid-template-columns:minmax(0,1fr);gap:18px}
+  #artgrid .abody,#artgrid .acard:first-child .abody{padding:21px 21px 23px}
+}
