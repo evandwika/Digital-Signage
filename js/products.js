@@ -169,9 +169,10 @@
   }).join("");
 
   const ag = document.getElementById("artgrid");
-  /* Listing: tanpa gambar, hanya 4 artikel non-Retail. Data (termasuk img & artikel Retail) tetap utuh untuk halaman detail. */
+  /* Listing: kartu dengan thumbnail, hanya 4 artikel non-Retail. Data (termasuk artikel Retail) tetap utuh untuk halaman detail. */
   const LIST_MAX = 4, LIST_HIDE = ["Retail"];
   if (ag) ag.innerHTML = window.ARTICLES.filter((a) => !LIST_HIDE.includes(a.cat)).slice(0, LIST_MAX).map((a) => `<article class="acard">
+    <a class="athumb" href="article-detail.html?a=${a.id}" tabindex="-1" aria-hidden="true"><img src="${BASE}${a.img}" alt="" loading="lazy"></a>
     <div class="abody"><div class="ameta"><span class="acat">${a.cat}</span><time>${a.date}</time></div>
     <h3><a href="article-detail.html?a=${a.id}">${a.title}</a></h3><p>${a.excerpt}</p>
     <a class="abtn" href="article-detail.html?a=${a.id}">Baca Selengkapnya${ART_ARROW}</a></div></article>`).join("");
@@ -184,6 +185,8 @@
     const bc = document.getElementById("artCrumb"); if (bc) bc.textContent = a.title;
     art.innerHTML = `<header class="ahd"><div class="ameta"><span class="acat">${a.cat}</span><time>${a.date}</time></div><h1>${a.title}</h1><p class="aintro">${a.intro}</p></header>
       <figure class="ahero"><img src="${BASE}${a.img}" alt="${esc(a.title)}"></figure>
-      <div class="abodytxt">${blocks(a.body)}<section class="aconc"><h2>Kesimpulan</h2><p>${a.conclusion}</p></section></div>`;
+      <div class="abodytxt">${blocks(a.body)}<section class="aconc"><h2>Kesimpulan</h2><p>${a.conclusion}</p></section></div>
+      <div class="acta"><div><h2>Butuh rekomendasi digital signage yang tepat?</h2><p>Tim kami siap membantu memilih produk sesuai kebutuhan dan anggaran Anda.</p></div><a class="btn" data-wa="" data-msg="Halo Cahaya Mustika Internesia, saya ingin konsultasi mengenai digital signage. Mohon informasi mengenai pilihan produk, spesifikasi, dan rekomendasi yang sesuai dengan kebutuhan saya." href="#">Konsultasi Sekarang</a></div>`;
+    bindWA();
   }
 })();
