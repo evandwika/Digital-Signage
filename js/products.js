@@ -186,7 +186,7 @@
     art.innerHTML = `<header class="ahd"><div class="ameta"><span class="acat">${a.cat}</span><time>${a.date}</time></div><h1>${a.title}</h1><p class="aintro">${a.intro}</p></header>
       <figure class="ahero"><img src="${BASE}${a.img}" alt="${esc(a.title)}"></figure>
       <div class="abodytxt">${blocks(a.body)}<section class="aconc"><h2>Kesimpulan</h2><p>${a.conclusion}</p></section></div>
-      <div class="acta"><div><h2>Butuh rekomendasi digital signage yang tepat?</h2><p>Tim kami siap membantu memilih produk sesuai kebutuhan dan anggaran Anda.</p></div><a class="btn" data-wa="" data-msg="Halo Cahaya Mustika Internesia, saya ingin konsultasi mengenai digital signage. Mohon informasi mengenai pilihan produk, spesifikasi, dan rekomendasi yang sesuai dengan kebutuhan saya." href="#">Konsultasi Sekarang</a></div>`;
+      <div class="acta"><div><h2>Butuh rekomendasi digital signage yang tepat?</h2><p>Tim kami siap membantu memilih produk sesuai kebutuhan dan anggaran Anda.</p></div><a class="btn" data-wa="" data-msg="Halo, saya ingin berkonsultasi mengenai solusi dan produk digital signage. Saya menemukan informasi ini melalui website cahayamustikainternesia.com." href="#">Konsultasi Sekarang</a></div>`;
     bindWA();
   }
 })();
