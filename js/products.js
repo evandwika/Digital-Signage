@@ -9,16 +9,16 @@
   const media = (p) => p.img ? `<img src="${imgSrc(p)}" alt="${esc(p.name)}" loading="lazy" decoding="async">` : `<span class="imgfb" role="img" aria-label="${esc(p.name)}">${esc(p.name)}</span>`;
   /* Logo brand (gambar PNG), menggantikan badge teks berwarna di atas nama produk */
   const BRAND_LOGO_IMG = {
-    Samsung: "assets/logo/brands/samsung.png",
-    LG: "assets/logo/brands/lg.png",
-    Hikvision: "assets/logo/brands/hikvision.png"
+    Samsung: "assets/logo/brands/samsung.webp",
+    LG: "assets/logo/brands/lg.webp",
+    Hikvision: "assets/logo/brands/hikvision.webp"
   };
   const brandLogo = (b) => BRAND_LOGO_IMG[b]
     ? `<span class="pbrand-logo"><img src="${BASE + BRAND_LOGO_IMG[b]}" alt="${esc(b)}" class="blogo blogo-${b.toLowerCase()}" loading="lazy" decoding="async"></span>`
     : `<span class="pbrand">${esc(b)}</span>`;
-  const card = (p) => `<article class="pcard">
+  const card = (p, hTag = p.hTag || "h2") => `<article class="pcard">
     <a class="pimg" href="${BASE}product-detail/${p.id}.html" data-name="${esc(p.name)}">${media(p)}</a>
-    <div class="pb">${brandLogo(p.brand)}${p.type === "accessory" && p.acat ? `<span class="pacat">${esc(p.acat)}</span>` : ""}<h3>${esc(p.name)}</h3>${p.desc ? `<p class="pdesc">${esc(p.desc)}</p>` : ""}
+    <div class="pb">${brandLogo(p.brand)}${p.type === "accessory" && p.acat ? `<span class="pacat">${esc(p.acat)}</span>` : ""}<${hTag}>${esc(p.name)}</${hTag}>${p.desc ? `<p class="pdesc">${esc(p.desc)}</p>` : ""}
     <a class="btn btn-o" href="${BASE}product-detail/${p.id}.html">Lihat Detail</a></div></article>`;
   const ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   const BRANDS = ["Samsung", "LG", "Hikvision"];
@@ -28,7 +28,7 @@
     return `<section class="bsec" aria-label="${b}"><div class="bhd"><h2 class="bname bn-${k}">${b.toUpperCase()}</h2><a class="bmore" data-b="${b}" href="${BASE}products.html#${k}">Lihat Semua ${ARROW}</a></div>
       <div class="pgrid">${it.map((p) => card(p)).join("")}</div></section>`;
   }).join("");
-  const EMPTY = `<div class="empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8.5 11h5"/></svg><h3>Produk tidak ditemukan</h3><p>Coba gunakan kata kunci lain.</p><button type="button" class="btn btn-o" data-reset>Reset pencarian</button></div>`;
+  const EMPTY = `<div class="empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8.5 11h5"/></svg><h2>Produk tidak ditemukan</h2><p>Coba gunakan kata kunci lain.</p><button type="button" class="btn btn-o" data-reset>Reset pencarian</button></div>`;
   const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
 
   /* Fallback gambar: bila file gagal dimuat, tampilkan latar netral + nama produk (bukan ikon rusak) */
@@ -56,7 +56,7 @@
       grid.innerHTML = list.length ? list.map((p) => card(p)).join("") : `<p class="empty">Produk tidak ditemukan. Ubah filter atau hubungi kami untuk rekomendasi.</p>`;
       bindWA();
     };
-    if (d.featured) show(d.featured.split(",").map((id) => all.find((p) => p.id === id)).filter(Boolean).map((p) => ({ ...p, desc: p.desc ? p.desc.split(", dirancang")[0].replace(/\.$/, "") + "." : p.desc })));
+    if (d.featured) show(d.featured.split(",").map((id) => all.find((p) => p.id === id)).filter(Boolean).map((p) => ({ ...p, hTag: "h3", desc: p.desc ? p.desc.split(", dirancang")[0].replace(/\.$/, "") + "." : p.desc })));
     else if (d.related) {
       /* Terkait: series yang sama dulu, lalu produk sejenis (display/aksesori) dari brand yang sama */
       const c = all.find((p) => p.id === d.related), same = all.filter((p) => p.brand === c.brand && p.id !== c.id);
@@ -169,13 +169,34 @@
   }).join("");
 
   const ag = document.getElementById("artgrid");
-  /* Listing: kartu dengan thumbnail, hanya 4 artikel non-Retail. Data (termasuk artikel Retail) tetap utuh untuk halaman detail. */
+  /* Listing: daftar horizontal dengan pencarian & filter kategori. Artikel kategori Retail disembunyikan dari daftar (tetap ada untuk halaman detail). */
   const LIST_MAX = 4, LIST_HIDE = ["Retail"];
-  if (ag) ag.innerHTML = window.ARTICLES.filter((a) => !LIST_HIDE.includes(a.cat)).slice(0, LIST_MAX).map((a) => `<article class="acard">
-    <a class="athumb" href="article-detail.html?a=${a.id}" tabindex="-1" aria-hidden="true"><img src="${BASE}${a.img}" alt="" loading="lazy"></a>
+  if (ag) {
+    const items = window.ARTICLES.filter((a) => !LIST_HIDE.includes(a.cat)).slice(0, LIST_MAX);
+    const qEl = document.getElementById("artq"), catBox = document.getElementById("artcats");
+    let cat = "";
+    const draw = () => {
+      const q = (qEl ? qEl.value : "").trim().toLowerCase();
+      const list = items.filter((a) => (!cat || a.cat === cat) && (!q || `${a.title} ${a.excerpt} ${a.cat}`.toLowerCase().includes(q)));
+      ag.innerHTML = list.length ? list.map((a, i) => `<article class="acard">
+    <a class="athumb" href="article-detail.html?a=${a.id}" tabindex="-1" aria-hidden="true"><span class="anum">${String(i + 1).padStart(2, "0")}</span><img src="${BASE}${a.img}" alt="" loading="lazy"></a>
     <div class="abody"><div class="ameta"><span class="acat">${a.cat}</span><time>${a.date}</time></div>
-    <h3><a href="article-detail.html?a=${a.id}">${a.title}</a></h3><p>${a.excerpt}</p>
-    <a class="abtn" href="article-detail.html?a=${a.id}">Baca Selengkapnya${ART_ARROW}</a></div></article>`).join("");
+    <h2><a href="article-detail.html?a=${a.id}">${a.title}</a></h2><p>${a.excerpt}</p>
+    <a class="abtn" href="article-detail.html?a=${a.id}">Baca Selengkapnya${ART_ARROW}</a></div></article>`).join("") : '<p class="aempty">Tidak ada artikel yang cocok.</p>';
+    };
+    if (catBox) {
+      const cats = ["", ...new Set(items.map((a) => a.cat))];
+      catBox.innerHTML = cats.map((c) => `<button type="button" data-c="${c}" class="${c === cat ? "on" : ""}" aria-pressed="${c === cat}">${c || "Semua"}</button>`).join("");
+      catBox.addEventListener("click", (e) => {
+        const b = e.target.closest("button"); if (!b) return;
+        cat = b.dataset.c;
+        catBox.querySelectorAll("button").forEach((x) => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); });
+        draw();
+      });
+    }
+    if (qEl) qEl.addEventListener("input", draw);
+    draw();
+  }
 
   /* ---- Detail artikel ---- */
   const art = document.getElementById("art");
@@ -185,8 +206,7 @@
     const bc = document.getElementById("artCrumb"); if (bc) bc.textContent = a.title;
     art.innerHTML = `<header class="ahd"><div class="ameta"><span class="acat">${a.cat}</span><time>${a.date}</time></div><h1>${a.title}</h1><p class="aintro">${a.intro}</p></header>
       <figure class="ahero"><img src="${BASE}${a.img}" alt="${esc(a.title)}"></figure>
-      <div class="abodytxt">${blocks(a.body)}<section class="aconc"><h2>Kesimpulan</h2><p>${a.conclusion}</p></section></div>
-      <div class="acta"><div><h2>Butuh rekomendasi digital signage yang tepat?</h2><p>Tim kami siap membantu memilih produk sesuai kebutuhan dan anggaran Anda.</p></div><a class="btn" data-wa="" data-msg="Halo, saya ingin berkonsultasi mengenai solusi dan produk digital signage. Saya menemukan informasi ini melalui website cahayamustikainternesia.com." href="#">Konsultasi Sekarang</a></div>`;
+      <div class="abodytxt">${blocks(a.body)}<section class="aconc"><h2>Kesimpulan</h2><p>${a.conclusion}</p></section></div>`;
     bindWA();
   }
 })();

@@ -1,6 +1,4 @@
-/* Dibuat oleh build.py. Edit data di build.py lalu jalankan ulang.
-   CATATAN: field "series" pada produk + window.SERIES di bawah ditambahkan langsung di file ini.
-   Jika build.py masih dipakai, tambahkan hal yang sama di sana agar tidak tertimpa. */
+/* Data produk, solusi, dan artikel. Edit langsung di file ini. */
 window.PRODUCTS=[
  {
   "id": "samsung-qmc-43",
@@ -13,7 +11,7 @@ window.PRODUCTS=[
   "cat": "Digital Signage",
   "nit": 350,
   "hrs": "24/7",
-  "img": "assets/products/samsung/samsung.png",
+  "img": "assets/products/samsung/samsung.webp",
   "desc": "Samsung Smart Signage QM43C adalah digital signage Samsung QMC Series berukuran 43 inci dengan brightness 350 nit dan dukungan operasi 24/7.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-samsung-smart-signage-qm43c",
   "verified": true
@@ -31,7 +29,7 @@ window.PRODUCTS=[
   "cat": "Digital Signage",
   "nit": 500,
   "hrs": "24/7",
-  "img": "assets/products/samsung/samsung.png",
+  "img": "assets/products/samsung/samsung.webp",
   "desc": "Samsung Smart Signage QM55C adalah digital signage Samsung QMC Series berukuran 55 inci dengan resolusi 3840 × 2160 (4K UHD), brightness 500 nit, dan dukungan operasi 24/7.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-samsung-smart-signage-qm55c",
   "verified": true
@@ -49,7 +47,7 @@ window.PRODUCTS=[
   "cat": "Digital Signage",
   "nit": 500,
   "hrs": "24/7",
-  "img": "assets/products/samsung/samsung.png",
+  "img": "assets/products/samsung/samsung.webp",
   "desc": "Samsung Smart Signage QM65C adalah digital signage Samsung QMC Series berukuran 65 inci dengan resolusi 3840 × 2160 (4K UHD), brightness 500 nit, dan dukungan operasi 24/7.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-samsung-smart-signage-qm65c",
   "verified": true
@@ -67,7 +65,7 @@ window.PRODUCTS=[
   "cat": "Digital Signage",
   "nit": 500,
   "hrs": "24/7",
-  "img": "assets/products/lg/LG UH5J.png",
+  "img": "assets/products/lg/lg-uh5j.webp",
   "desc": "LG UHD Standard Signage 43UH5J-H adalah digital signage LG UH5J Series berukuran 43 inci dengan resolusi 3840 × 2160 (UHD), panel IPS, brightness 500 nit, dan operasi 24/7.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-uhd-standard-signage-43uh5j-h",
   "verified": true
@@ -85,7 +83,7 @@ window.PRODUCTS=[
   "cat": "Digital Signage",
   "nit": 500,
   "hrs": "24/7",
-  "img": "assets/products/lg/LG UH5J.png",
+  "img": "assets/products/lg/lg-uh5j.webp",
   "desc": "LG UHD Standard Signage 55UH5J-H adalah digital signage LG UH5J Series berukuran 55 inci dengan resolusi 3840 × 2160 (UHD), panel IPS, brightness 500 nit, dan operasi 24/7.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-uhd-standard-signage-55uh5j-h",
   "verified": true
@@ -103,7 +101,7 @@ window.PRODUCTS=[
   "cat": "Digital Signage",
   "nit": 500,
   "hrs": "24/7",
-  "img": "assets/products/lg/LG UH5J.png",
+  "img": "assets/products/lg/lg-uh5j.webp",
   "desc": "LG UHD Standard Signage 65UH5J-H adalah digital signage LG UH5J Series berukuran 65 inci dengan resolusi 3840 × 2160 (UHD), panel IPS, brightness 500 nit, dan operasi 24/7.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-uhd-standard-signage-65uh5j-h",
   "verified": true
@@ -113,7 +111,7 @@ window.PRODUCTS=[
   "brand": "LG",
   "series": "ul3j",
   "type": "display",
-  "img": "assets/products/lg/LG UL3J.png",
+  "img": "assets/products/lg/lg-ul3j.webp",
   "name": "LG UHD Standard Signage 43UL3J-E",
   "model": "43UL3J-E",
   "size": 43,
@@ -131,7 +129,7 @@ window.PRODUCTS=[
   "brand": "LG",
   "series": "ul3j",
   "type": "display",
-  "img": "assets/products/lg/LG UL3J.png",
+  "img": "assets/products/lg/lg-ul3j.webp",
   "name": "LG UHD Standard Signage 55UL3J-B",
   "model": "55UL3J-B",
   "size": 55,
@@ -149,7 +147,7 @@ window.PRODUCTS=[
   "brand": "LG",
   "series": "ul3j",
   "type": "display",
-  "img": "assets/products/lg/LG UL3J.png",
+  "img": "assets/products/lg/lg-ul3j.webp",
   "name": "LG UHD Standard Signage 65UL3J-B",
   "model": "65UL3J-B",
   "size": 65,
@@ -167,7 +165,7 @@ window.PRODUCTS=[
   "brand": "Hikvision",
   "series": "wall-mounted",
   "type": "display",
-  "img": "assets/products/hikvision/55.png",
+  "img": "assets/products/hikvision/55.webp",
   "name": "Hikvision Digital Signage DS-D6043UN-B",
   "model": "DS-D6043UN-B",
   "size": 43,
@@ -184,7 +182,7 @@ window.PRODUCTS=[
   "brand": "Hikvision",
   "series": "wall-mounted",
   "type": "display",
-  "img": "assets/products/hikvision/55.png",
+  "img": "assets/products/hikvision/55.webp",
   "name": "Hikvision Digital Signage DS-D6055UN-B",
   "model": "DS-D6055UN-B",
   "size": 55,
@@ -201,7 +199,7 @@ window.PRODUCTS=[
   "brand": "Hikvision",
   "series": "wall-mounted",
   "type": "display",
-  "img": "assets/products/hikvision/55.png",
+  "img": "assets/products/hikvision/55.webp",
   "name": "Hikvision Digital Signage DS-D6065UN",
   "model": "DS-D6065UN",
   "size": 65,
@@ -218,7 +216,7 @@ window.PRODUCTS=[
   "brand": "Samsung",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/samsung/Samsung Wall Mount WMN-B50SC.png",
+  "img": "assets/products/samsung/samsung-wall-mount-wmn-b50sc.webp",
   "name": "Samsung Wall Mount WMN-B50SC",
   "model": "WMN-B50SC",
   "cat": "Aksesori",
@@ -232,7 +230,7 @@ window.PRODUCTS=[
   "brand": "Samsung",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/samsung/samsung-foot-stand-stn-l4655e.png",
+  "img": "assets/products/samsung/samsung-foot-stand-stn-l4655e.webp",
   "name": "Samsung Foot Stand STN-L4655E",
   "model": "STN-L4655E",
   "cat": "Aksesori",
@@ -246,7 +244,7 @@ window.PRODUCTS=[
   "brand": "LG",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/lg/LG STAND.jpg",
+  "img": "assets/products/lg/lg-stand.webp",
   "name": "LG Stand ST-653T",
   "model": "ST-653T",
   "cat": "Aksesori",
@@ -260,7 +258,7 @@ window.PRODUCTS=[
   "brand": "LG",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/lg/LG Wall Bracket.png",
+  "img": "assets/products/lg/lg-wall-bracket.webp",
   "name": "LG Wall Bracket LSW350B",
   "model": "LSW350B",
   "cat": "Aksesori",
@@ -274,7 +272,7 @@ window.PRODUCTS=[
   "brand": "LG",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/lg/LG OPS.png",
+  "img": "assets/products/lg/lg-ops.webp",
   "name": "LG OPS Kit KT-OPSF",
   "model": "KT-OPSF",
   "cat": "Aksesori",
@@ -288,7 +286,7 @@ window.PRODUCTS=[
   "brand": "Hikvision",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/hikvision/wall mount.png",
+  "img": "assets/products/hikvision/wall-mount.webp",
   "name": "Hikvision Wall-mounted Bracket DS-DM4255W",
   "model": "DS-DM4255W",
   "cat": "Aksesori",
@@ -302,7 +300,7 @@ window.PRODUCTS=[
   "brand": "Hikvision",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/hikvision/Box DS-D60E-B.png",
+  "img": "assets/products/hikvision/box-ds-d60e-b.webp",
   "name": "Hikvision Digital Signage Box DS-D60E-B",
   "model": "DS-D60E-B",
   "cat": "Aksesori",
@@ -324,7 +322,7 @@ window.PRODUCTS=[
   "res": "3840 × 2160",
   "cat": "Digital Signage",
   "nit": 700,
-  "img": "assets/products/samsung/samsung_qh.png",
+  "img": "assets/products/samsung/samsung_qh.webp",
   "desc": "Samsung Smart Signage QH50 adalah digital signage Samsung QH Series 50 inci dengan resolusi 4K UHD dan brightness 700 nit.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-samsung-smart-signage-qh50",
   "verified": true
@@ -341,7 +339,7 @@ window.PRODUCTS=[
   "res": "3840 × 2160",
   "cat": "Digital Signage",
   "nit": 700,
-  "img": "assets/products/samsung/samsung_qh.png",
+  "img": "assets/products/samsung/samsung_qh.webp",
   "desc": "Samsung Smart Signage QH55 adalah digital signage Samsung QH Series 55 inci dengan resolusi 4K UHD dan brightness 700 nit.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-samsung-smart-signage-qh55",
   "verified": true
@@ -359,7 +357,7 @@ window.PRODUCTS=[
   "cat": "Digital Signage",
   "nit": 700,
   "hrs": "24/7",
-  "img": "assets/products/samsung/samsung_qh.png",
+  "img": "assets/products/samsung/samsung_qh.webp",
   "desc": "Samsung Smart Signage QH75C adalah digital signage Samsung QH Series 75 inci dengan resolusi 4K UHD, brightness 700 nit, dan dukungan operasi 24/7.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-samsung-smart-signage-qh75c",
   "verified": true
@@ -376,7 +374,7 @@ window.PRODUCTS=[
   "res": "3840 × 2160",
   "cat": "Digital Signage",
   "nit": 700,
-  "img": "assets/products/hikvision/hikvision.png",
+  "img": "assets/products/hikvision/hikvision.webp",
   "desc": "Hikvision Digital Signage DS-D6043UH-DP berukuran 43 inci dengan 700 cd/m², 4K, Android 13, 4 GB RAM, 32 GB storage, dan HDMI serta DP.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-hikvision-ds-d6043uh-dp",
   "verified": true
@@ -393,7 +391,7 @@ window.PRODUCTS=[
   "res": "3840 × 2160",
   "cat": "Digital Signage",
   "nit": 700,
-  "img": "assets/products/hikvision/hikvision.png",
+  "img": "assets/products/hikvision/hikvision.webp",
   "desc": "Hikvision Digital Signage DS-D6050UH-DP berukuran 50 inci dengan 700 cd/m², 4K, Android 13, 4 GB RAM, 32 GB storage, dan HDMI serta DP.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-hikvision-ds-d6050uh-dp",
   "verified": true
@@ -410,7 +408,7 @@ window.PRODUCTS=[
   "res": "3840 × 2160",
   "cat": "Digital Signage",
   "nit": 700,
-  "img": "assets/products/hikvision/hikvision.png",
+  "img": "assets/products/hikvision/hikvision.webp",
   "desc": "Hikvision Digital Signage DS-D6055UH berukuran 55 inci dengan 700 cd/m², UHD 4K, Android 8.0, 3 GB RAM, 32 GB storage, dan HDMI, DVI-I serta DP1.2.",
   "sourceUrl": "https://www.cahayamustikainternesia.com/product/digital-signage-hikvision-ds-d6055uh",
   "verified": true
@@ -420,7 +418,7 @@ window.PRODUCTS=[
   "brand": "Samsung",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/samsung/Player Box Signage Samsung SBB-SSNU.png",
+  "img": "assets/products/samsung/player-box-signage-samsung-sbb-ssnu.webp",
   "name": "Player Box Signage Samsung SBB-SSNU",
   "model": "SBB-SSNU",
   "cat": "Aksesori",
@@ -436,7 +434,7 @@ window.PRODUCTS=[
   "brand": "Hikvision",
   "series": "accessories",
   "type": "accessory",
-  "img": "assets/products/hikvision/mobile bracket.png",
+  "img": "assets/products/hikvision/mobile-bracket.webp",
   "name": "Hikvision Mobile Bracket DS-D5ABKY2-M",
   "model": "DS-D5ABKY2-M",
   "cat": "Aksesori",
@@ -454,37 +452,37 @@ window.SOLUTIONS=[
   "id": "indoor",
   "title": "Digital Signage Indoor",
   "desc": "Display digital untuk kebutuhan informasi dan promosi di dalam ruangan.",
-  "img": "assets/images/solutions/retail.png"
+  "img": "assets/images/solutions/retail.webp"
  },
  {
   "id": "outdoor",
   "title": "Digital Signage Outdoor",
   "desc": "Display digital untuk menyampaikan informasi di area luar ruangan.",
-  "img": "assets/images/solutions/outdoor.png"
+  "img": "assets/images/solutions/outdoor.webp"
  },
  {
   "id": "corporate",
   "title": "Corporate Display",
   "desc": "Komunikasi internal, lobi, dan ruang meeting perusahaan yang lebih profesional.",
-  "img": "assets/images/solutions/corporate.png"
+  "img": "assets/images/solutions/corporate.webp"
  },
  {
   "id": "menu",
   "title": "Digital Menu Board",
   "desc": "Menu digital yang mudah diperbarui untuk restoran dan kafe.",
-  "img": "assets/images/solutions/digitalmenu.png"
+  "img": "assets/images/solutions/digitalmenu.webp"
  },
  {
   "id": "transportation",
   "title": "Transportation Digital Signage",
   "desc": "Informasi jadwal dan petunjuk perjalanan di area transportasi.",
-  "img": "assets/images/solutions/public.png"
+  "img": "assets/images/solutions/public.webp"
  },
  {
   "id": "interactive",
   "title": "Digital Signage Interaktif",
   "desc": "Display interaktif yang memungkinkan pengguna berinteraksi dengan konten.",
-  "img": "assets/images/solutions/interactive.png"
+  "img": "assets/images/solutions/interactive.webp"
  }
 ];
 window.ARTICLES=[
@@ -494,7 +492,7 @@ window.ARTICLES=[
   "date": "12 September 2026",
   "title": "Bagaimana Memilih Digital Signage yang Tepat untuk Bisnis?",
   "excerpt": "Kenali faktor penting seperti lokasi, jarak pandang, ukuran, dan durasi penggunaan.",
-  "img": "assets/images/articles/memilih-digital-signage.png",
+  "img": "assets/images/articles/memilih-digital-signage.webp",
   "intro": "Digital signage kini banyak dipakai di toko, kantor, restoran, hingga ruang publik. Namun layar yang bagus belum tentu cocok untuk setiap tempat. Sebelum membeli, ada beberapa hal yang sebaiknya Anda pertimbangkan agar layar benar-benar membantu bisnis.",
   "body": [
    {
@@ -538,7 +536,7 @@ window.ARTICLES=[
   "date": "5 September 2026",
   "title": "Professional Display vs TV Biasa: Apa Perbedaannya?",
   "excerpt": "Sekilas mirip, tetapi dibuat untuk kebutuhan dan lama pemakaian yang berbeda.",
-  "img": "assets/images/articles/professional-display-vs-tv.svg",
+  "img": "assets/images/articles/professional-display-vs-tv.webp",
   "intro": "Sekilas, TV dan professional display terlihat mirip. Keduanya punya layar besar dan bisa menampilkan video. Bedanya ada pada tujuan pembuatannya, dan perbedaan itu terasa ketika layar dipakai setiap hari untuk bisnis.",
   "body": [
    {
@@ -612,7 +610,7 @@ window.ARTICLES=[
   "date": "28 Agustus 2026",
   "title": "Memanfaatkan Digital Signage untuk Meningkatkan Pengalaman Retail",
   "excerpt": "Tampilkan promo dan produk baru di titik yang tepat, tanpa cetak ulang.",
-  "img": "assets/images/articles/digital-signage-retail.svg",
+  "img": "assets/images/articles/digital-signage-retail.webp",
   "intro": "Di toko, pelanggan sering mengambil keputusan dengan cepat. Digital signage membantu menyampaikan informasi yang tepat pada saat yang tepat, tanpa harus mencetak ulang materi promosi setiap kali ada perubahan.",
   "body": [
    {
@@ -665,7 +663,7 @@ window.ARTICLES=[
   "date": "20 Agustus 2026",
   "title": "Bagaimana Menentukan Ukuran Display yang Tepat?",
   "excerpt": "Sesuaikan ukuran layar dengan jarak pandang, luas ruangan, dan jumlah audiens.",
-  "img": "assets/images/articles/menentukan-ukuran-display.svg",
+  "img": "assets/images/articles/menentukan-ukuran-display.webp",
   "intro": "Ukuran layar sering menjadi pertanyaan pertama saat memilih digital signage. Jawabannya tidak selalu sama untuk setiap tempat, karena bergantung pada cara layar akan dilihat.",
   "body": [
    {
@@ -707,7 +705,7 @@ window.ARTICLES=[
   "date": "14 Agustus 2026",
   "title": "5 Keuntungan Digital Signage untuk Bisnis Modern",
   "excerpt": "Dari konten yang mudah diperbarui hingga penggunaan di berbagai lingkungan.",
-  "img": "assets/images/articles/keuntungan-digital-signage.svg",
+  "img": "assets/images/articles/keuntungan-digital-signage.webp",
   "intro": "Semakin banyak bisnis beralih dari poster dan banner cetak ke layar digital. Berikut lima keuntungan yang umumnya dirasakan saat memakai digital signage.",
   "body": [
    {
