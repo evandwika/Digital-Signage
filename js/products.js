@@ -31,6 +31,19 @@
   const EMPTY = `<div class="empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8.5 11h5"/></svg><h2>Produk tidak ditemukan</h2><p>Coba gunakan kata kunci lain.</p><button type="button" class="btn btn-o" data-reset>Reset pencarian</button></div>`;
   const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
 
+  /* Deskripsi seri produk, ditulis lebih SEO friendly (mengandung brand + nama seri + kata kunci terkait) */
+  const SERIES_SEO_DESC = {
+    "Samsung|qet": "Digital signage Samsung QE-T Series hadir dengan layar 4K UHD, cocok untuk kebutuhan promosi toko, lobi kantor, hingga papan informasi digital.",
+    "Samsung|kmc": "Samsung Kiosk KMC Series berbasis Windows, pilihan tepat untuk self-service kiosk, mesin antrian, dan layar interaktif berbasis sentuh.",
+    "Samsung|accessories": "Aksesori pendukung digital signage Samsung, mulai dari player box, floor stand, hingga wall mount untuk instalasi yang lebih rapi dan aman.",
+    "LG|uh7j": "Digital signage LG UH7J Series dengan panel IPS UHD brightness tinggi, ideal untuk signage indoor 24/7 di mal, kantor, dan ruang publik.",
+    "LG|uh5j": "Digital signage LG UH5J Series menawarkan layar UHD 4K dengan harga kompetitif, cocok untuk kebutuhan digital signage komersial sehari-hari.",
+    "LG|ul3j": "Digital signage LG UL3J Series dirancang untuk aplikasi advertising dan video wall dengan tampilan UHD yang tajam dan tahan pemakaian panjang.",
+    "Hikvision|wall-mounted": "Digital signage Hikvision Wall-mounted Series, didesain tipis dan ringkas untuk dipasang di dinding sebagai papan informasi atau penunjuk arah.",
+    "Hikvision|floor-standing": "Digital signage Hikvision Floor Standing Series, solusi display berdiri untuk lobi mal, toko ritel, dan ruang pamer (showroom).",
+    "Hikvision|servers-boxes": "Digital Signage Server dan Box Hikvision untuk mengelola serta memutar konten pada layar digital signage dan video wall LCD/LED Anda.",
+  };
+
   /* Fallback gambar: bila file gagal dimuat, tampilkan latar netral + nama produk (bukan ikon rusak) */
   const fallback = (im) => {
     if (im.dataset.fb) return; im.dataset.fb = "1";
@@ -68,7 +81,7 @@
       location.replace(BASE + "products.html#" + d.brand.toLowerCase());
     }
     else {
-      const q = document.getElementById("q"), fs = document.getElementById("fs"), fc = document.getElementById("fc"), count = document.getElementById("count"), rst = document.getElementById("reset");
+      const q = document.getElementById("q"), fs = document.getElementById("fs"), fcEl = document.getElementById("fc"), fc = fcEl || { value: "" }, count = document.getElementById("count"), rst = document.getElementById("reset");
       const chips = [...document.querySelectorAll("#brandChips button")];
       const block = document.getElementById("seriesBlock"), nav = document.getElementById("seriesNav"), lbl = document.getElementById("seriesLabel");
             if (matchMedia("(max-width:640px)").matches) q.placeholder = "Cari produk atau brand...";
@@ -89,8 +102,16 @@
         series = (list.find((x) => x.id === parts[1]) || list[0] || { id: "" }).id;
         want = list.some((x) => x.id === parts[1]) ? parts[1] : "";
       };
-      /* Seri tampil menurun dalam satu halaman; tautan #brand/seri menggulir ke seri tersebut */
-      const toSeries = () => { const el = want && document.getElementById("series-" + want); if (el) el.scrollIntoView({ block: "start" }); };
+      /* Seri tampil menurun dalam satu halaman; tautan #brand/seri menggulir ke seri tersebut.
+         requestAnimationFrame (x2) memastikan DOM dari run() sudah selesai di-paint sebelum scroll dihitung,
+         supaya saat datang dari halaman lain (mis. klik navbar di index.html) scroll langsung tepat & produk langsung terlihat. */
+      const toSeries = () => {
+        if (!want) return;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          const el = document.getElementById("series-" + want);
+          if (el) el.scrollIntoView({ block: "start" });
+        }));
+      };
       let skip = false;
       const setHash = (h) => { if (location.hash === "#" + h) return; skip = true; location.hash = h; };
 
@@ -127,7 +148,9 @@
           if (!res.length) return "";
           present.push(cur);
           const sizes = [...new Set(inSeries.filter((p) => p.size).map((p) => p.size))].sort((a, b) => a - b).map((n) => n + '"').join(", ");
-          const info = cur.id === "accessories" ? `${inSeries.length} aksesori ${esc(brand)}. Kompatibilitas dengan model display tertentu perlu dikonfirmasi.` : `${inSeries.length} model tersedia${sizes ? " dengan pilihan ukuran " + sizes : ""}.`;
+          const seo = SERIES_SEO_DESC[brand + "|" + cur.id];
+          const countInfo = cur.id === "accessories" || cur.id === "servers-boxes" ? `${inSeries.length} produk tersedia.` : `${inSeries.length} model tersedia${sizes ? " dengan pilihan ukuran " + sizes : ""}.`;
+          const info = seo ? `${esc(seo)} ${esc(countInfo)}` : (cur.id === "accessories" ? `${inSeries.length} aksesori ${esc(brand)}. Kompatibilitas dengan model display tertentu perlu dikonfirmasi.` : `${inSeries.length} model tersedia${sizes ? " dengan pilihan ukuran " + sizes : ""}.`);
           return `<section class="sgroup" id="series-${esc(cur.id)}" aria-label="${esc(brand + " " + cur.name)}"><div class="shead"><h2>${esc(brand + " " + cur.name)}</h2><p>${info}</p></div><div class="pgrid">${res.map((p) => card(p)).join("")}</div></section>`;
         }).join("");
         count.textContent = active ? `Menampilkan ${shown} dari ${total} produk` : "";
@@ -140,7 +163,7 @@
       const reset = () => { q.value = fs.value = fc.value = ""; run(); };
       const go = (b, s) => { q.value = ""; brand = b; const l = seriesFor(b); series = (l.find((x) => x.id === s) || l[0] || { id: "" }).id; setHash(s ? b.toLowerCase() + "/" + series : b.toLowerCase()); run(); };
       chips.forEach((c) => c.addEventListener("click", () => go(c.dataset.v)));
-      [q, fs, fc].forEach((el) => el.addEventListener("input", run));
+      [q, fs, fcEl].filter(Boolean).forEach((el) => el.addEventListener("input", run));
       rst.addEventListener("click", reset);
       grid.addEventListener("click", (e) => {
         if (e.target.closest("[data-reset]")) { reset(); return; }
@@ -149,6 +172,17 @@
       document.getElementById("filters").addEventListener("submit", (e) => { e.preventDefault(); run(); grid.scrollIntoView({ behavior: "smooth", block: "start" }); });
       /* Tautan navbar/footer ke #brand saat sudah di halaman ini: reset pencarian & tampilkan brand tsb */
       window.addEventListener("hashchange", () => { if (skip) { skip = false; return; } q.value = fs.value = fc.value = ""; readState(); run(); toSeries(); });
+      /* Bug fix: klik link navbar/dropdown produk (products.html#samsung dst) saat hash URL tidak berubah
+         (mis. sudah di #samsung lalu klik "Digital Signage Samsung" lagi) tidak memicu event hashchange,
+         sehingga grid produk tampak tidak berubah/"tidak langsung muncul". Tangani klik link tsb secara eksplisit. */
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href*="products.html#"]'); if (!a) return;
+        const hash = a.getAttribute("href").split("#")[1] || "";
+        if ("#" + hash !== location.hash) return; // hash beda: biarkan browser & listener hashchange yang menangani
+        e.preventDefault();
+        q.value = fs.value = fc.value = "";
+        readState(); run(); toSeries();
+      });
       readState(); run(); toSeries();
     }
   }
@@ -178,24 +212,27 @@
     const draw = () => {
       const q = (qEl ? qEl.value : "").trim().toLowerCase();
       const list = items.filter((a) => (!cat || a.cat === cat) && (!q || `${a.title} ${a.excerpt} ${a.cat}`.toLowerCase().includes(q)));
-      ag.innerHTML = list.length ? list.map((a, i) => `<article class="acard">
-    <a class="athumb" href="article-detail.html?a=${a.id}" tabindex="-1" aria-hidden="true"><span class="anum">${String(i + 1).padStart(2, "0")}</span><img src="${BASE}${a.img}" alt="" loading="lazy"></a>
-    <div class="abody"><div class="ameta"><span class="acat">${a.cat}</span><time>${a.date}</time></div>
+      ag.innerHTML = list.length ? list.map((a) => `<article class="acard">
+    <a class="athumb" href="article-detail.html?a=${a.id}" tabindex="-1" aria-hidden="true"><img src="${BASE}${a.img}" alt="" loading="lazy"></a>
+    <div class="abody"><div class="ameta"><time>${a.date}</time></div>
     <h2><a href="article-detail.html?a=${a.id}">${a.title}</a></h2><p>${a.excerpt}</p>
     <a class="abtn" href="article-detail.html?a=${a.id}">Baca Selengkapnya${ART_ARROW}</a></div></article>`).join("") : '<p class="aempty">Tidak ada artikel yang cocok.</p>';
     };
     if (catBox) {
-      const cats = ["", ...new Set(items.map((a) => a.cat))];
-      catBox.innerHTML = cats.map((c) => `<button type="button" data-c="${c}" class="${c === cat ? "on" : ""}" aria-pressed="${c === cat}">${c || "Semua"}</button>`).join("");
-      catBox.addEventListener("click", (e) => {
-        const b = e.target.closest("button"); if (!b) return;
-        cat = b.dataset.c;
-        catBox.querySelectorAll("button").forEach((x) => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); });
-        draw();
-      });
+      const cats = [...new Set(items.map((a) => a.cat))];
+      catBox.innerHTML = `<option value="">Semua</option>` + cats.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+      catBox.addEventListener("change", () => { cat = catBox.value; draw(); });
     }
     if (qEl) qEl.addEventListener("input", draw);
     draw();
+
+    /* Postingan Terbaru: daftar link singkat ke artikel terbaru, independen dari filter pencarian/kategori di atas */
+    const recentBox = document.getElementById("artrecent");
+    if (recentBox) {
+      const RECENT_MAX = 5;
+      const recent = window.ARTICLES.filter((a) => !LIST_HIDE.includes(a.cat)).slice(0, RECENT_MAX);
+      recentBox.innerHTML = recent.map((a) => `<li><a href="article-detail.html?a=${a.id}">${esc(a.title)}</a></li>`).join("");
+    }
   }
 
   /* ---- Detail artikel ---- */
@@ -204,7 +241,7 @@
     const a = window.ARTICLES.find((x) => x.id === new URLSearchParams(location.search).get("a")) || window.ARTICLES[0];
     document.title = a.title + " | Cahaya Mustika Indonesia";
     const bc = document.getElementById("artCrumb"); if (bc) bc.textContent = a.title;
-    art.innerHTML = `<header class="ahd"><div class="ameta"><span class="acat">${a.cat}</span><time>${a.date}</time></div><h1>${a.title}</h1><p class="aintro">${a.intro}</p></header>
+    art.innerHTML = `<header class="ahd"><div class="ameta"><time>${a.date}</time></div><h1>${a.title}</h1><p class="aintro">${a.intro}</p></header>
       <figure class="ahero"><img src="${BASE}${a.img}" alt="${esc(a.title)}"></figure>
       <div class="abodytxt">${blocks(a.body)}<section class="aconc"><h2>Kesimpulan</h2><p>${a.conclusion}</p></section></div>`;
     bindWA();

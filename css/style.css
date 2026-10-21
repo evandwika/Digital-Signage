@@ -269,7 +269,7 @@ form small{color:#D14343;font-size:12px;font-weight:500;min-height:0}
 .th{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;margin:0;display:block}
 /* Footer */
 .foot-in{grid-template-columns:1.5fr 1fr 1fr 1.7fr}
-.flogo{width:auto;height:92px;max-width:100%;margin-bottom:14px}
+.flogo{width:auto;height:128px;max-width:100%;margin-bottom:14px}
 .foot .ci{display:flex;gap:10px;align-items:flex-start;padding:4px 0;color:var(--mute);font-size:14px}.foot .ci svg{flex:none;margin-top:3px}
 .foot a.ci:hover{color:var(--p)}
 .soc{display:flex;gap:10px;flex-wrap:wrap}.soc a{padding:6px 12px;border:1px solid var(--line);border-radius:6px;color:var(--mute)}.soc a:hover{color:var(--p);border-color:var(--p)}.soc span{padding:0}
@@ -351,6 +351,10 @@ input,select,textarea{background:var(--surf2)}
 .prow .chips button{border-radius:999px;padding:9px 22px}
 .psel{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .sel{display:flex;flex-direction:row;align-items:center;gap:8px;padding:0 6px 0 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-size:13px;color:var(--mute);font-weight:600}
+.acatsel{display:block;margin-top:14px;width:100%}
+.acatsel span{display:block;margin-bottom:8px;font-size:13px;font-weight:600;color:var(--mute)}
+.acatsel select{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.acatsel select:focus{outline:none;border-color:var(--p)}
 .sel select{width:auto;border:0;background:transparent!important;padding:10px 6px;font-weight:700;color:var(--ink);cursor:pointer}
 .sel:focus-within{border-color:var(--p)}
 .rst{border:0;background:none;color:var(--p);font-weight:700;font-size:14px;cursor:pointer;padding:8px 6px}.rst:hover{text-decoration:underline}
@@ -539,6 +543,11 @@ body:has(#artgrid) .page-header p{max-width:600px;margin:18px auto 0;color:#CFDB
 .acats button{padding:7px 14px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
 .acats button:hover{border-color:var(--p)}
 .acats button.on{background:var(--p);border-color:var(--p);color:#fff}
+.arecent{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.arecent li{padding-bottom:14px;border-bottom:1px solid var(--line)}
+.arecent li:last-child{border-bottom:none;padding-bottom:0}
+.arecent a{color:var(--p);font-size:14px;font-weight:600;line-height:1.5;text-decoration:none}
+.arecent a:hover{text-decoration:underline}
 @media(max-width:960px){.alayout{grid-template-columns:1fr}.aside{position:static}}
 @media(max-width:640px){.acard{grid-template-columns:1fr}.athumb{min-height:0;aspect-ratio:16/9}.abody{padding:18px 20px 22px}}
 
@@ -556,7 +565,7 @@ body{font-size:15px;line-height:1.75;letter-spacing:-.008em}
 .brand-logo{width:166px;max-height:48px}
 .menu{gap:4px}
 .menu>a:not(.btn),.dd-btn{padding:10px 13px;border-radius:9px;font-size:13.5px}
-.menu>a:not(.btn):hover,.dd-btn:hover,.dd:hover .dd-btn{background:var(--soft)}
+.menu>a:not(.btn):hover,.dd-btn:hover,.dd:hover .dd-btn{color:var(--ink)}
 .btn{min-height:44px;padding:12px 19px;border-radius:10px;font-weight:700;letter-spacing:0;transition:transform .2s,box-shadow .2s,background .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(7,88,217,.18)}
 .btn-o:hover{background:var(--soft)}
@@ -564,7 +573,8 @@ body{font-size:15px;line-height:1.75;letter-spacing:-.008em}
 .sec{padding:92px 0}
 .head{max-width:760px;margin:0 auto 42px;text-align:center}
 .head h2,.shead h2{font-size:clamp(28px,3.2vw,42px);line-height:1.2;letter-spacing:-.04em;font-weight:800}
-.head p,.shead p{margin:14px auto 0;max-width:650px;color:var(--mute);font-size:16px;line-height:1.8}
+.head p{margin:14px auto 0;max-width:650px;color:var(--mute);font-size:16px;line-height:1.8}
+.shead p{margin:14px 0 0;max-width:none;text-align:left;color:var(--mute);font-size:16px;line-height:1.8}
 .eyebrow,.tag{letter-spacing:.09em;font-size:11px;font-weight:800;text-transform:uppercase}
 .hero{padding-top:132px;padding-bottom:82px}
 .hero-in{gap:64px}
@@ -740,7 +750,7 @@ button{transition:background .2s,color .2s,border-color .2s}
 .foot-in{grid-template-columns:1.5fr 1fr 1.5fr;gap:48px;padding-top:56px;padding-bottom:36px}
 .foot .ftitle{margin:0 0 14px;color:var(--ink);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .foot-in>div>a:not(.ci){display:block;padding:4px 0}
-.flogo{height:84px;margin-bottom:16px}
+.flogo{height:112px;margin-bottom:16px}
 .foot-in>div:first-child p{max-width:340px;line-height:1.8}
 .foot .ci{padding:5px 0}
 .copy{margin-top:0;padding:20px 0 26px}
