@@ -13,7 +13,9 @@
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;overflow-x:hidden;transition:background .25s,color .25s}
+body{font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;overflow-x:hidden;transition:background .25s,color .25s}
+/* Judul/heading memakai Manrope, seluruh isi teks lainnya tetap Poppins (diwarisi dari body) */
+h1,h2,h3,h4,h5,h6{font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -234,23 +236,26 @@ form small{color:#D14343;font-size:12px;font-weight:500;min-height:0}
 .pcard:hover .pimg img{transform:scale(1.04)}
 .pb{padding:20px 22px 24px;display:flex;flex-direction:column;gap:4px}
 .pbrand{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.02em}
-.pbrand-logo{display:inline-flex;align-items:center;height:22px;margin-bottom:4px}
-.pbrand-logo .blogo{height:100%;width:auto;max-width:120px;display:block;object-fit:contain}
-.pbrand-logo .blogo-samsung{height:13px}
-.pbrand-logo .blogo-lg{height:22px}
-.pbrand-logo .blogo-hikvision{height:14px}
 .pacat{display:inline-block;margin-left:8px;font-size:12px;color:var(--mute);font-weight:600}
 .pb h2{font-size:19px;font-weight:700;line-height:1.35}
 .pb .btn{margin-top:14px;align-self:flex-start;padding:10px 22px}
-/* Solusi (kartu bergambar) */
-.sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.solc{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:#071A36;text-align:left;transition:transform .25s,box-shadow .25s}
+/* Solusi (kartu bergambar): grid mosaic 4 kolom, 2 baris.
+   Baris 1: kartu besar (2 kolom) di kiri + 2 kartu kecil (1 kolom) di kanan.
+   Baris 2: 2 kartu kecil (1 kolom) di kiri + kartu besar (2 kolom) di kanan.
+   Tinggi tiap baris disamakan lewat grid-auto-rows, bukan aspect-ratio per kartu,
+   supaya kartu besar dan kecil dalam satu baris selalu sejajar tingginya. */
+.sol-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:340px;gap:20px}
+.sol-grid .solc:nth-child(1){grid-column:span 2}
+.sol-grid .solc:nth-child(6){grid-column:span 2}
+.solc{display:block;position:relative;border-radius:var(--r);overflow:hidden;text-align:left;transition:transform .25s,box-shadow .25s;text-decoration:none;color:inherit}
 .solc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .solc::after{content:"";position:absolute;inset:0;background:rgba(7,88,217,0);transition:background .3s}
 .solc:hover{transform:translateY(-4px);box-shadow:0 16px 32px -16px rgba(7,26,54,.5)}
 .solc:hover img{transform:scale(1.05)}.solc:hover::after{background:rgba(7,88,217,.16)}
-.sol-t{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:56px 20px 18px;background:linear-gradient(0deg,rgba(7,26,54,.94),rgba(7,26,54,0));color:#fff}
-.sol-t h3{color:#fff;font-size:18px;font-weight:700;line-height:1.35}.sol-t p{font-size:14px;color:#D5E0F1;margin-top:4px}/* Trust + FAQ */
+.sol-t{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:52px 20px 20px;background:linear-gradient(0deg,rgba(7,26,54,.96) 35%,rgba(7,26,54,.55) 65%,rgba(7,26,54,0));color:#fff}
+.sol-t h3{color:#fff;font-size:18px;font-weight:700;line-height:1.35}.sol-t p{font-size:14px;color:#D5E0F1;margin-top:4px}
+.sol-ic{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-bottom:10px;border-radius:9px;background:rgba(255,255,255,.12);color:#8FC0FF;backdrop-filter:blur(2px)}
+/* Trust + FAQ */
 
 .faq{max-width:780px}
 .faq-i{border-bottom:1px solid var(--line)}
@@ -331,7 +336,7 @@ input,select,textarea{background:var(--surf2)}
 .pfc:hover,.pfc:focus-visible{transform:translateY(-3px);box-shadow:0 18px 36px -20px rgba(7,26,54,.45)}
 .pfc:hover .pfc-img img,.pfc:focus-visible .pfc-img img{transform:scale(1.04)}/* Kontak (di beranda) */
 
-.kt-list{list-style:none;padding:0;display:grid;gap:18px;margin-bottom:28px}
+.kt-list{list-style:none;padding:0;display:grid;gap:18px;margin-bottom:22px}
 .kt-list li{display:flex;gap:14px;align-items:flex-start}
 .kt-ico{flex:none;width:44px;height:44px;border-radius:12px;background:var(--soft);color:var(--p);display:grid;place-items:center}
 .kt-list small{display:block;font-size:12.5px;font-weight:600;color:var(--mute);min-height:0}
@@ -480,21 +485,25 @@ html:has(#lb[open]){overflow:hidden}
 .feat h2::after{content:"";display:block;width:48px;height:4px;margin:16px auto 0;border-radius:4px;background:var(--p)}
 .feat.ctr .sub,.feat .sub{max-width:560px;margin:16px auto 48px;font-size:16px}
 .feat .pgrid{gap:28px;align-items:stretch}
-.feat .pcard{border-radius:16px;box-shadow:0 1px 2px rgba(7,26,54,.04),0 8px 24px -18px rgba(7,26,54,.25)}
+.feat .pcard{position:relative;border-radius:20px;padding:14px;box-shadow:0 1px 2px rgba(7,26,54,.04),0 8px 24px -18px rgba(7,26,54,.25)}
 .feat .pcard:hover{transform:translateY(-6px);box-shadow:0 22px 40px -22px rgba(7,26,54,.35);border-color:var(--p)}
-.feat .pimg{background:#fff;border-bottom:1px solid var(--line)}
-.feat .pimg img{aspect-ratio:3/2;height:auto;object-fit:contain;background:#fff}
-.feat .pb{flex:1;padding:22px 24px 24px;gap:6px}
-.feat .pbrand{display:inline-block;align-self:flex-start;padding:3px 10px;border-radius:999px;background:var(--soft);font-size:12px;letter-spacing:.04em}
-.feat .pbrand-logo{align-self:flex-start;background:none;padding:0}
-.feat .pb h3{font-size:20px;font-weight:700;line-height:1.35;margin-top:6px}
+/* Foto produk sumbernya sudah berupa mockup TV dengan margin putih di sekelilingnya,
+   jadi kotak latar biru terpisah di sini justru menimbulkan efek "belang" berlapis.
+   Satu latar polos saja, menyatu dengan warna card, gambar ditampilkan utuh (contain). */
+.feat .pimg{background:var(--card);border:none;border-radius:14px;padding:0;overflow:hidden}
+.feat .pimg img{display:block;width:100%;aspect-ratio:3/2;height:auto;object-fit:contain;background:var(--card)}
+.feat .pb{flex:1;padding:18px 6px 4px;gap:6px}
+.feat .pbrand{display:inline-block;align-self:flex-start;padding:0;background:none;font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--p)}
+.feat .pb h3{font-size:19px;font-weight:700;line-height:1.35;margin-top:6px}
 .feat .pdesc{-webkit-line-clamp:3;min-height:calc(1.55em*3);margin-top:2px}
-.feat .pb .btn{margin-top:auto;align-self:stretch;padding:11px 18px;border-radius:10px;background:var(--p);border-color:var(--p);color:#fff;gap:8px}
-.feat .pb .pdesc+.btn{margin-top:18px}
+.feat .pb .btn{margin-top:auto;align-self:flex-start;padding:0;border:0;background:none;color:var(--p);font-weight:700;gap:6px}
+.feat .pb .pdesc+.btn{margin-top:14px}
 .feat .pb .btn::after{content:"→";transition:transform .25s}
-.feat .pb .btn:hover{background:var(--p2);border-color:var(--p2);color:#fff}
+.feat .pb .btn:hover{background:none;color:var(--p2)}
 .feat .pcard:hover .btn::after,.feat .pb .btn:hover::after{transform:translateX(4px)}
 .feat .more{margin-top:44px}
+.feat .pcard-top{border-color:var(--p);box-shadow:0 22px 44px -20px rgba(7,88,217,.32)}
+.feat .pcard-top:hover{box-shadow:0 26px 48px -20px rgba(7,88,217,.4)}
 
 /* Halaman produk: semua seri tampil menurun dalam satu halaman */
 .sgroup{scroll-margin-top:92px}
@@ -504,7 +513,7 @@ html:has(#lb[open]){overflow:hidden}
 .snav-wrap[hidden]{display:none}
 
 /* CTA Konsultasi Sekarang (halaman Kontak Kami) */
-.contact-consult{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:32px;padding:15px 28px;font-size:15px;text-decoration:none;align-self:flex-start}
+.contact-consult{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;padding:15px 28px;font-size:15px;text-decoration:none;align-self:flex-start}
 .contact-consult span{transition:transform .2s}
 .contact-consult:hover span{transform:translateX(3px)}
 @media (max-width:480px){.contact-consult{width:100%}}
@@ -600,7 +609,10 @@ body{font-size:15px;line-height:1.75;letter-spacing:-.008em}
 .solc:hover img,.pcard:hover .pimg,.pfc:hover .pfc-img img,.acard:hover .athumb img{transform:scale(1.035)}
 .pgrid{gap:22px}
 .pcard{padding:18px}
-.pimg{border-radius:12px;background:var(--alt);object-fit:contain}
+/* Foto produk sumbernya berupa mockup TV dengan margin putih; latar polos menyatu dengan
+   card (bukan kotak abu-abu terpisah) menghindari efek "belang" berlapis di sekitar gambar. */
+.pimg{border-radius:12px;background:var(--card);overflow:hidden}
+.pimg img{object-fit:contain;background:var(--card)}
 .pcard h3,.solc h3,.acard h3{font-size:17px;line-height:1.4;letter-spacing:-.02em}
 .pdesc{font-size:13.5px;line-height:1.7}
 .pf{gap:22px}
@@ -678,7 +690,9 @@ button{transition:background .2s,color .2s,border-color .2s}
  .head{margin-bottom:26px}
  .head h2,.shead h2{font-size:29px}
  .head p,.shead p{font-size:14px}
- .sol-grid{gap:14px}
+ .sol-grid{gap:14px;grid-template-columns:1fr;grid-auto-rows:auto}
+ .sol-grid .solc:nth-child(1),.sol-grid .solc:nth-child(6){grid-column:span 1}
+ .sol-grid .solc{aspect-ratio:4/3}
  .pgrid{gap:15px}
  .pcard{padding:13px}
  .page-header{padding-top:104px;padding-bottom:38px}
@@ -703,7 +717,7 @@ button{transition:background .2s,color .2s,border-color .2s}
 .sec .ctr>h2,.sec .head h2,.choosing-copy h2{font-size:clamp(28px,3.4vw,40px);line-height:1.2;letter-spacing:-.03em;font-weight:800;margin:0}
 .feat h2::after{display:none}
 .sec .ctr>.sub,.sec .head p,.choosing-copy .sub{max-width:600px;margin:14px auto 44px;color:var(--mute);font-size:16px;line-height:1.75}
-.feat .pcard{padding:0}
+.feat .pcard{padding:14px}
 .feat .more,.sec .more{margin-top:40px;text-align:center}
 .sol-grid{gap:22px}
 

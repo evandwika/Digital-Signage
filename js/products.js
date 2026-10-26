@@ -7,15 +7,8 @@
   const imgSrc = (p) => BASE + p.img;
   /* Produk tanpa foto (series baru & accessories): placeholder konsisten dengan fallback gambar existing */
   const media = (p) => p.img ? `<img src="${imgSrc(p)}" alt="${esc(p.name)}" loading="lazy" decoding="async">` : `<span class="imgfb" role="img" aria-label="${esc(p.name)}">${esc(p.name)}</span>`;
-  /* Logo brand (gambar PNG), menggantikan badge teks berwarna di atas nama produk */
-  const BRAND_LOGO_IMG = {
-    Samsung: "assets/logo/brands/samsung.webp",
-    LG: "assets/logo/brands/lg.webp",
-    Hikvision: "assets/logo/brands/hikvision.webp"
-  };
-  const brandLogo = (b) => BRAND_LOGO_IMG[b]
-    ? `<span class="pbrand-logo"><img src="${BASE + BRAND_LOGO_IMG[b]}" alt="${esc(b)}" class="blogo blogo-${b.toLowerCase()}" loading="lazy" decoding="async"></span>`
-    : `<span class="pbrand">${esc(b)}</span>`;
+  /* Badge teks nama brand di atas nama produk (logo gambar brand sudah tidak dipakai lagi) */
+  const brandLogo = (b) => `<span class="pbrand">${esc(b)}</span>`;
   const card = (p, hTag = p.hTag || "h2") => `<article class="pcard">
     <a class="pimg" href="${BASE}product-detail/${p.id}.html" data-name="${esc(p.name)}">${media(p)}</a>
     <div class="pb">${brandLogo(p.brand)}${p.type === "accessory" && p.acat ? `<span class="pacat">${esc(p.acat)}</span>` : ""}<${hTag}>${esc(p.name)}</${hTag}>${p.desc ? `<p class="pdesc">${esc(p.desc)}</p>` : ""}
@@ -69,7 +62,16 @@
       grid.innerHTML = list.length ? list.map((p) => card(p)).join("") : `<p class="empty">Produk tidak ditemukan. Ubah filter atau hubungi kami untuk rekomendasi.</p>`;
       bindWA();
     };
-    if (d.featured) show(d.featured.split(",").map((id) => all.find((p) => p.id === id)).filter(Boolean).map((p) => ({ ...p, hTag: "h3", desc: p.desc ? p.desc.split(", dirancang")[0].replace(/\.$/, "") + "." : p.desc })));
+    if (d.featured) {
+      const list = d.featured.split(",").map((id) => all.find((p) => p.id === id)).filter(Boolean).map((p) => ({ ...p, hTag: "h3", desc: p.desc ? p.desc.split(", dirancang")[0].replace(/\.$/, "") + "." : p.desc }));
+      grid.innerHTML = list.length ? list.map((p, i) => {
+        const html = card(p);
+        /* Produk tengah diberi border highlight (tanpa label teks) agar section Rekomendasi Produk terasa lebih dikurasi */
+        const mark = i === Math.floor((list.length - 1) / 2);
+        return mark ? html.replace('<article class="pcard">', '<article class="pcard pcard-top">') : html;
+      }).join("") : `<p class="empty">Produk tidak ditemukan. Ubah filter atau hubungi kami untuk rekomendasi.</p>`;
+      bindWA();
+    }
     else if (d.related) {
       /* Terkait: series yang sama dulu, lalu produk sejenis (display/aksesori) dari brand yang sama */
       const c = all.find((p) => p.id === d.related), same = all.filter((p) => p.brand === c.brand && p.id !== c.id);
@@ -189,7 +191,16 @@
 
   /* ---- Solusi (beranda) ---- */
   const sol = document.getElementById("solutions");
-  if (sol) sol.innerHTML = window.SOLUTIONS.map((x) => `<article class="solc"><img src="${BASE}${x.img}" alt="${esc(x.title)}" loading="lazy"><div class="sol-t"><h3>${x.title}</h3><p>${x.desc}</p></div></article>`).join("");
+  /* Ikon kecil di atas judul tiap kartu solusi, mengikuti gaya referensi (ikon outline putih translusen) */
+  const SOL_ICON = {
+    indoor: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+    outdoor: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="12" rx="1.5"/><path d="M9 21h6M12 15v6"/></svg>',
+    corporate: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>',
+    menu: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h10M7 17h6"/></svg>',
+    transportation: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a9 9 0 019 9c0 5-9 11-9 11s-9-6-9-11a9 9 0 019-9z"/><circle cx="12" cy="11" r="3"/></svg>',
+    interactive: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M9 21h6M12 17v4"/><path d="M8 10l2 2-2 2M13 12h3"/></svg>',
+  };
+  if (sol) sol.innerHTML = window.SOLUTIONS.map((x) => `<a class="solc" href="${BASE}products.html" aria-label="Lihat produk untuk ${esc(x.title)}"><img src="${BASE}${x.img}" alt="${esc(x.title)}" loading="lazy"><div class="sol-t">${SOL_ICON[x.id] ? `<span class="sol-ic">${SOL_ICON[x.id]}</span>` : ""}<h3>${x.title}</h3><p>${x.desc}</p></div></a>`).join("");
 
   /* ---- Artikel: data dari window.ARTICLES (js/data.js) ---- */
   const ART_ARROW = " →";
